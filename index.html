@@ -456,5 +456,26 @@
                    }
                    });
            </script>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var navbarHeight = document.querySelector('.navbar').offsetHeight;
+              var accordionHeaderHeight = document.querySelector('.accordion-header').offsetHeight;
+              var accordionItems = document.querySelectorAll('.accordion-item');
+        
+              accordionItems.forEach(function(item) {
+                item.addEventListener('shown.bs.collapse', function () {
+                  var targetButton = item.querySelector('.accordion-button');
+                  if (targetButton) {
+                    var targetSection = targetButton.getAttribute('data-bs-target').substring(1);
+                    var targetElement = document.getElementById(targetSection);
+                    if (targetElement) {
+                      var targetOffset = targetElement.offsetTop - navbarHeight - accordionHeaderHeight;
+                      window.scrollTo({ top: targetOffset, behavior: 'smooth' });
+                    }
+                  }
+                });
+              });
+            });
+          </script>
 </body>
 </html>
